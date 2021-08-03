@@ -26,12 +26,17 @@ function affichageProduit(dataProduitSelected) {
     document.querySelector("#main").innerHTML += `
         <div class="col-0 col-md-3"></div>    
         <div class="col-12 col-md-6 card my-3 shadow">
-            <div class="cadreImage cadreImage--lg"><img src="${dataProduitSelected.imageUrl}" alt="photo ourson ${dataProduitSelected.name}" class="card-img-top" /></div>
+            <div class="row">
+                <div class="col-0 col-md-2"></div>
+                <div class="col-12 col-md-8 cadreImage cadreImage--lg">
+                    <img src="${dataProduitSelected.imageUrl}" alt="photo ourson ${dataProduitSelected.name}" class="card-img-top" />
+                </div>
+                <div class="col-0 col-md-2"></div>
+            </div>
             <div class="card-body">
                 <h2 class="card-title text-center" id="name">${dataProduitSelected.name}</h2>
                 <div class="card-subtitle bg-light my-3 text-center">${prixEuro}</div>
                 <div class="card-text my-3">Lorem ipsum dolor sit amet.</div>
-                <a href="produit.html?id=${dataProduitSelected._id}" rel="nofollow"><button id="${dataProduitSelected._id}" class="btn btn-secondary w-100">détails</button></a>
                 <form method="get" action="panier.html" id="form">
                 </form>
             </div>   
@@ -66,12 +71,20 @@ function getProduitsParType(typeProduits) {
             }
         })
         .then(function(dataProduit){
-            if (typeof idRecherche == "undefined"){
-                affichageProduits(dataProduit);
+            let idRecherche = getIdProduit();
+            if(idRecherche == ""){
+              affichageProduits(dataProduit);   
             }else{
-                alert(idRecherche);
+                for (let i = 0; i < dataProduit.length; i++) {
+                    let idFound = dataProduit[i]._id.includes(idRecherche);
+                    if(idFound == true){
+                        let dataProduitSelected = dataProduit[i];
+                        affichageProduit(dataProduitSelected);
+                        break;
+                    }
+                };
             }
-            
+                   
         })
 };
 
