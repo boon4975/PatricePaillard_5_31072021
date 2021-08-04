@@ -67,7 +67,11 @@ function affichageProduit(dataProduitSelected) {
         document.querySelector("#options").innerHTML += `
             <option value="${option[opt]}">${option[opt]}
             </option> `;
-    };                       
+    };
+    document.getElementById('order').addEventListener('click', function(){
+        addToCart(dataProduitSelected);
+        alert('order');
+    });                      
 };
 
 function getProduitsParType(typeProduits) {
