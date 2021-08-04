@@ -22,6 +22,14 @@ function affichageProduits(dataProduit) {
 
 // fonction de création du HTML pour un produit sélectionné (produit.html)
 function affichageProduit(dataProduitSelected) {
+    let option =[];
+    if(dataProduitSelected.hasOwnProperty('colors') == true){
+        option = option.concat(dataProduitSelected.colors);
+    }else if(dataProduitSelected.hasOwnProperty('varnish') == true){
+        option = option.concat(dataProduitSelected.varnish);
+    }else if(dataProduitSelected.hasOwnProperty('lenses') == true){
+        option = option.concat(dataProduitSelected.lenses);
+    };
     let prixEuro = (dataProduitSelected.price / 100).toFixed(2) + ' €';
     document.querySelector("#main").innerHTML += `
         <div class="col-0 col-md-3"></div>    
@@ -44,8 +52,8 @@ function affichageProduit(dataProduitSelected) {
         <div class="col-0 col-md-3"></div>`;
     document.querySelector("#form").innerHTML = `
         <div class="form-group p-1">
-            <select name="colors" id="colors" class="form-control">
-                <option>Choisissez la couleur de votre ours</option>
+            <select name="colors" id="options" class="form-control">
+                <option>Option disponible</option>
             </select>
             <div class="form-group p-1">
                 <label for="qty">Quantité : </label>
@@ -55,9 +63,9 @@ function affichageProduit(dataProduitSelected) {
                 <input type="button" value="Ajouter au panier" name="Order" id="order" class="form-control btn btn-secondary" />
             </div>
         </div>`;
-    for(let opt = 0; opt < dataProduitSelected.colors.length; opt++){
-        document.querySelector("#colors").innerHTML += `
-            <option value="${dataProduitSelected.colors[opt]}">${dataProduitSelected.colors[opt]}
+    for(let opt = 0; opt < option.length; opt++){
+        document.querySelector("#options").innerHTML += `
+            <option value="${option[opt]}">${option[opt]}
             </option> `;
     };                       
 };
