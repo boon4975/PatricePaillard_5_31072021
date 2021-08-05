@@ -18,8 +18,8 @@ h1, .h1, h2, .h2 {
   max-height: 250px;
 }
 .cadreImage--xs {
-  max-width: 40px;
-  max-height: 40px;
+  max-width: 50px;
+  max-height: 50px;
 }
 .cadreImage img {
   width: auto;

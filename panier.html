@@ -48,9 +48,28 @@
     </header>
 <!-- Principal conteneur -->
 <div class="container-fluid container-lg ">
-    <div id="main" class="row">
+    <div class="row">
+        <table class="col col-md-8 table text-center align-middle small my-1">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th colspan="2">Détails</th>
+                    <th>Quantité</th>
+                    <th>P.U.</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="main">
+
+            </tbody>
+        </table>
         <!-- insertion du resultat requete liste des éléments d'un produit -->
 
+    </div>
+</div>
+<div class="container-fluid container-lg row">
+    <div class="col">
+        <div id="total" class="col text-end fw-bold"></div>
     </div>
 </div>
 <!-- Footer conteneur -->
@@ -80,6 +99,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="./frontend/js/fonctions.js"></script>
+<script src="./frontend/js/webstorage.js"></script>
 <script src="./frontend/js/panier.js"></script>
 </body>
 </html>

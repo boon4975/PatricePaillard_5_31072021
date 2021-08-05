@@ -9,7 +9,6 @@ function initCart() {
 
 function addToCart(dataProduitSelected){
     let cart = initCart();
-    dataProduitSelected.qty = 1;
     cart.push(dataProduitSelected);
     saveToCart(cart);
 }

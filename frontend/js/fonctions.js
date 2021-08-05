@@ -1,8 +1,8 @@
-// Variable contenant la liste des catégories de produits
+// Liste des catégories de produits
 const listCategoriesProduits = ['teddies', 'cameras', 'furniture'];
 
-// fonction de création du HTML pour chaque type de produit disponible (index.html)
-function affichageProduits(dataProduit) {
+// création du HTML pour chaque type de produit disponible (index.html)
+function viewAllProducts(dataProduit) {
     for (let i = 0; i < dataProduit.length; i++) {
         let prixEuro = (dataProduit[i].price / 100).toFixed(2) + ' €';
         document.querySelector("#main").innerHTML += `
@@ -11,7 +11,7 @@ function affichageProduits(dataProduit) {
             <div class="card-body">
                 <h2 class="card-title text-center" id="name">${dataProduit[i].name}</h2>
                 <div class="card-subtitle bg-light my-3 text-center">${prixEuro}</div>
-                <div class="card-text my-3">Lorem ipsum dolor sit amet.</div>
+                <div class="card-text my-3">${dataProduit[i].name}<br/>${dataProduit[i].description}</div>
                 <a href="produit.html?id=${dataProduit[i]._id}" rel="nofollow"><button id="${dataProduit[i]._id}" class="btn btn-secondary w-100">détails</button></a>
                 <form method="get" action="panier.html">
                 </form>
@@ -20,8 +20,8 @@ function affichageProduits(dataProduit) {
     };
 }
 
-// fonction de création du HTML pour un produit sélectionné (produit.html)
-function affichageProduit(dataProduitSelected) {
+// création du HTML pour un produit sélectionné (produit.html)
+function viewProduct(dataProduitSelected) {
     let option =[];
     if(dataProduitSelected.hasOwnProperty('colors') == true){
         option = option.concat(dataProduitSelected.colors);
@@ -44,7 +44,7 @@ function affichageProduit(dataProduitSelected) {
             <div class="card-body">
                 <h2 class="card-title text-center" id="name">${dataProduitSelected.name}</h2>
                 <div class="card-subtitle bg-light my-3 text-center">${prixEuro}</div>
-                <div class="card-text my-3">Lorem ipsum dolor sit amet.</div>
+                <div class="card-text my-3">${dataProduitSelected.description}</div>
                 <form method="get" action="panier.html" id="form">
                 </form>
             </div>   
@@ -70,10 +70,12 @@ function affichageProduit(dataProduitSelected) {
     };
     document.getElementById('order').addEventListener('click', function(){
         addToCart(dataProduitSelected);
-        alert('order');
-    });                      
+    });
+    document.getElementById('qty').addEventListener('change', function(e){
+        dataProduitSelected.qty = e.target.value;
+    })
 };
-
+// Récupération des données pour chaque catégorie de produit ou pour un id.produit
 function getProduitsParType(typeProduits) {
     let urlApi = `http://localhost:3000/api/${typeProduits}`;
     fetch(urlApi)
@@ -83,15 +85,15 @@ function getProduitsParType(typeProduits) {
             }
         })
         .then(function(dataProduit){
-            let idRecherche = getIdProduit();
+            let idRecherche = getIdInSearchBar();
             if(idRecherche == ""){
-              affichageProduits(dataProduit);   
+              viewAllProducts(dataProduit);   
             }else{
                 for (let i = 0; i < dataProduit.length; i++) {
                     let idFound = dataProduit[i]._id.includes(idRecherche);
                     if(idFound == true){
                         let dataProduitSelected = dataProduit[i];
-                        affichageProduit(dataProduitSelected);
+                        viewProduct(dataProduitSelected);
                         break;
                     }
                 };
@@ -100,8 +102,48 @@ function getProduitsParType(typeProduits) {
         })
 };
 
-function getIdProduit() {
+// récupération ID dans la barre de navigation
+function getIdInSearchBar() {
     let idDansUri = window.location.search;
     let idRecherche = idDansUri.substring(4,idDansUri.length);
     return idRecherche;
 };
+
+// calcul sous-total de chaque article au panier
+function sousTotal(cart) {
+    let prix = cart.price;
+    let qty = cart.qty;
+    let totalProduit = prix * parseInt(qty);
+    return totalProduit;
+};
+
+// affichage du panier
+function viewPanier(){
+    let cart = initCart();
+    let totalCart = 0;
+    //boucle sur le panier
+    for(i = 0; i < cart.length; i++){
+       let prixEuro = (cart[i].price / 100).toFixed(2) + ' €';
+       sousTotalProduit = sousTotal(cart[i]);
+       sousTotalProduitEuro = (sousTotal(cart[i]) / 100).toFixed(2) + ' €';
+       document.querySelector("#main").innerHTML += `
+        <tr>
+            <td class="miniature">
+                <div class="cadreImage cadreImage--xs my-1">
+                    <img src="${cart[i].imageUrl}" alt="miniature ours 1" />
+                </div>
+            </td>
+            <td colspan="2">${cart[i].name}</td>
+            <td>${cart[i].qty}</td>
+            <td>${prixEuro}</td>
+            <td>${sousTotalProduitEuro}</td>
+        </tr>
+    `;
+    totalCart += sousTotalProduit; 
+    }
+    totalCartEuro = (totalCart / 100).toFixed(2) + ' €';
+    document.querySelector("#total").innerHTML += `
+        ${totalCartEuro}
+    `;
+    
+}
