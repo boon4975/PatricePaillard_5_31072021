@@ -7,6 +7,12 @@ h1, .h1, h2, .h2 {
   font-family: "Merienda", cursive;
 }
 
+.btn-tertiary {
+  color: #000 !important;
+  background-color: #f3e9f1 !important;
+  border-color: #c97b59 !important;
+}
+
 .cadreImage {
   display: flex;
   justify-content: center;
