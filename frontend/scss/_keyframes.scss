@@ -1,0 +1,8 @@
+@keyframes headshake {
+    25% {
+        transform: translateX($headshake_intensity);
+    }
+    75% {
+        transform: translateX($headshake_intensity * -1);
+    }
+}

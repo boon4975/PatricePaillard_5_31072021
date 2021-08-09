@@ -1,5 +1,7 @@
 // Liste des catégories de produits
 const listCategoriesProduits = ['teddies', 'cameras', 'furniture'];
+// Liste des champs requis du formulaire
+const fieldRequired = ['firstName', 'lastName', 'adress', 'city', 'email']
 
 // création du HTML pour chaque type de produit disponible (index.html)
 function viewAllProducts(dataProduit) {
@@ -7,7 +9,7 @@ function viewAllProducts(dataProduit) {
         let prixEuro = (dataProduit[i].price / 100).toFixed(2) + ' €';
         document.querySelector("#main").innerHTML += `
         <div class="col-12 col-md-6 col-lg-4 card my-3 shadow">
-            <div class="cadreImage cadreImage--lg"><img src="${dataProduit[i].imageUrl}" alt="photo ourson ${dataProduit[i].name}" class="card-img-top" /></div>
+            <div class="cadreImage cadreImage--lg"><img src="${dataProduit[i].imageUrl}" alt="${dataProduit[i].name}" class="card-img-top" /></div>
             <div class="card-body">
                 <h2 class="card-title text-center" id="name">${dataProduit[i].name}</h2>
                 <div class="card-subtitle bg-light my-3 text-center">${prixEuro}</div>
@@ -75,7 +77,7 @@ function viewProduct(dataProduitSelected) {
                 <h2 class="card-title text-center" id="name">${dataProduitSelected.name}</h2>
                 <div class="card-subtitle bg-light my-3 text-center">${prixEuro}</div>
                 <div class="card-text my-3">${dataProduitSelected.description}</div>
-                <form action="panier.html" id="form">
+                <form id="form">
                 </form>
             </div>   
         </div>
@@ -90,7 +92,7 @@ function viewProduct(dataProduitSelected) {
                 <input type="number" min="1" name="qty" id="qty" class="form-control" autofocus required/>
             </div>
             <div class="form-group p-1">
-                <input type="submit" value="Ajouter au panier" name="Order" id="order" class="form-control btn btn-secondary" disabled="true"/>
+                <input type="button" value="Ajouter au panier" name="Order" id="order" class="form-control btn btn-secondary" disabled="true" data-toggle="modal" data-target="#popup"/>
             </div>
         </div>`;
     for(let opt = 0; opt < option.length; opt++){
@@ -155,7 +157,30 @@ function getQtyOnClick(dataProduitSelected) {
         return dataProduitSelected.qty = e.target.value;
     })
 }
-// gestion de l'activation de "ajout au panier"
+// event activation de "ajout au panier"
 function submitEnable(enable){
     document.getElementById("order").removeAttribute("disabled");
 }
+// event affichage du formulaire de contact
+function contactEnable(){
+    document.getElementById("contact").classList.remove("d-none");
+}
+
+function patternCheck(value){
+    value.forEach(field => {
+        if(field == 'firstName' || field == 'lastName'){
+            fieldCheckText(field);
+        }else if(field == 'adress' || field == 'city'){
+            fieldCheckText(field);
+        }else if(field == 'email'){
+            fieldCheckText(field);
+        }
+        
+    });
+}
+
+function fieldCheckText(e){
+    if(/[0-9&"#'{(  )}`_\\@+=$*%!:\/;.?,°\[\]-]/.test(e.target.value)){
+        alert('erreur');
+    }
+};

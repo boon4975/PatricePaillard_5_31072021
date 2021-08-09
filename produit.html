@@ -46,51 +46,66 @@
             </nav>
         </div>
     </header>
-<!-- Principal conteneur -->
+<!-- Principal conteneur 1 article-->
     <div class="container-fluid container-lg ">
         <div id="main" class="row">
             <!-- insertion du resultat requete liste des éléments d'un produit -->
 
         </div>
     </div>
+<!-- Bouton continuer achats-->
     <div class="container-fluid container-lg">
         <div class="row">
             <div class="col-0 col-md-3"></div>
             <div class="col-12 col-md-6 btn">
-                <a href="index.html" rel="nofollow"><button class="btn btn-tertiary w-50 fw-bold shadow">Retour au menu</button></a>
+                <a href="index.html" rel="nofollow"><button class="btn btn-tertiary w-50 fw-bold shadow">Continuer vos achats</button></a>
             </div>
             <div class="col-0 col-md-3"></div>
         </div>
     </div>
+<!--pop up Ajout panier OK-->
+<div id="popup" class="modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                Article(s) ajouté(s) au panier.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--fin pop-->
 <!-- Footer conteneur -->
-<footer class="container-fluid container-lg bg-light">
-    <div class="row pt-3">
-        <div class="col-12 col-md-4 p-3 text-center">
-            <p class="h6">&Agrave; propos</p>
+    <footer class="container-fluid container-lg bg-light">
+        <div class="row pt-3">
+            <div class="col-12 col-md-4 p-3 text-center">
+                <p class="h6">&Agrave; propos</p>
+            </div>
+            <div class="col-12 col-md-4 p-3 text-center">
+                <a href="mailto:contact@oniroco.fr" class="h6 text-decoration-none">Nous contacter</a>
+            </div>
+            <div class="col-12 col-md-4 p-3 text-center">
+                <p class="h6">Conditions générales de ventes</p>
+            </div>
         </div>
-        <div class="col-12 col-md-4 p-3 text-center">
-            <a href="mailto:contact@oniroco.fr" class="h6 text-decoration-none">Nous contacter</a>
+        <hr />
+        <div class="row">
+            <div class="col text-center">
+                <p class="h6">2021 &copy; Tous droits réservés Oniroco</p>
+            </div>
         </div>
-        <div class="col-12 col-md-4 p-3 text-center">
-            <p class="h6">Conditions générales de ventes</p>
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col text-center">
-            <p class="h6">2021 &copy; Tous droits réservés Oniroco</p>
-        </div>
-    </div>
-</footer>
+    </footer>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script src="./frontend/js/fonctions.js"></script>
-<script src="./frontend/js/index.js"></script>
-<script src="./frontend/js/webstorage.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="./frontend/js/fonctions.js"></script>
+    <script src="./frontend/js/index.js"></script>
+    <script src="./frontend/js/webstorage.js"></script>
 
 </body>
 </html>

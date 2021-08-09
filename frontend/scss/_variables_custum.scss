@@ -1,38 +1,5 @@
 $primary: #915cf8;
 $secondary: #c97b59;
 $gray-100: #f3e9f1;
-
-h1 {
-    color: $primary;  
-}
-h1, h2 {
-    font-family: 'Merienda', cursive;
-}
-.btn-tertiary {
-    color: #000 !important;
-    background-color: $gray-100 !important;
-    border-color: #c97b59 !important;
-  }
-.cadreImage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    &--lg {
-        max-width: 400px;
-        max-height: 250px;
-    }
-    &--xs {
-        max-width: 50px;
-        max-height: 50px;
-    }
-    & img {
-        width: auto;
-        height: 100%;
-    }
-}
-
-.miniature {
-    display: flex;
-    justify-content: center;
-}
+$headshake_duree : 100ms;
+$headshake_intensity: 2%;

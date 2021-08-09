@@ -18,61 +18,107 @@
         <title>Votre Panier - Oniroco</title>
     </head>
 <body>
- <!-- Header conteneur -->   
-    <header class="container-fluid container-lg bg-light">
+    <!-- Header conteneur -->   
+        <header class="container-fluid container-lg bg-light">
+            <div class="row">
+                <nav class="col navbar navbar-expand-lg navbar-light">
+                    <a href="index.html" class="navbar-brand row">
+                        <img src="./images/logo/icon.png" alt="logo de Oniroco" width="50" height="50" class="col-4"/>
+                        <h1 class="col-8 text-center align-self-end">Oniroco</h1>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="navbarContent" class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            <li class="navbar-item active">
+                                <a href="#" class="nav-link">Ours en peluche</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a href="#" class="nav-link">Meuble en chêne</a>
+                            </li>
+                            <li class="navbar-item">
+                                <a href="#" class="nav-link">Lentille photo</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </nav>
+            </div>
+        </header>
+    <!-- conteneur liste des articles dans le panier-->
+    <div class="container-fluid container-lg ">
         <div class="row">
-            <nav class="col navbar navbar-expand-lg navbar-light">
-                <a href="index.html" class="navbar-brand row">
-                    <img src="./images/logo/icon.png" alt="logo de Oniroco" width="50" height="50" class="col-4"/>
-                    <h1 class="col-8 text-center align-self-end">Oniroco</h1>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div id="navbarContent" class="collapse navbar-collapse justify-content-end">
-                    <ul class="navbar-nav">
-                        <li class="navbar-item active">
-                            <a href="#" class="nav-link">Ours en peluche</a>
-                        </li>
-                        <li class="navbar-item">
-                            <a href="#" class="nav-link">Meuble en chêne</a>
-                        </li>
-                        <li class="navbar-item">
-                            <a href="#" class="nav-link">Lentille photo</a>
-                        </li>
-                    </ul>
-                </div>
-                
-            </nav>
+            <table class="col col-md-8 table text-center align-middle small my-1">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th colspan="2">Détails</th>
+                        <th>Quantité</th>
+                        <th>P.U.</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="main">
+
+                </tbody>
+            </table>
+            <!-- insertion du resultat requete liste des éléments d'un produit -->
+
         </div>
-    </header>
-<!-- Principal conteneur -->
-<div class="container-fluid container-lg ">
-    <div class="row">
-        <table class="col col-md-8 table text-center align-middle small my-1">
-            <thead>
-                <tr>
-                    <th>Produit</th>
-                    <th colspan="2">Détails</th>
-                    <th>Quantité</th>
-                    <th>P.U.</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="main">
-
-            </tbody>
-        </table>
-        <!-- insertion du resultat requete liste des éléments d'un produit -->
-
     </div>
-</div>
-<div class="container-fluid container-lg">
-    <div class="row">
-        <div class="col-8 col-md-10"></div>
-        <div id="total" class="col-4 col-md-2 text-center fw-bold"></div>
+    <!-- Total de la commande -->
+    <div class="container-fluid container-lg">
+        <div class="row">
+            <div class="col-8 col-md-10"></div>
+            <div id="total" class="col-4 col-md-2 text-center fw-bold"></div>
+        </div>
+        <div class="row">
+            <hr class="my-3"/>
+        </div> 
     </div>
-</div>
+    <!-- Btn passer commande-->
+    <div class="container">
+        <div class="row">
+            <div class="col-0 col-md-3"></div>
+            <div class="col-12 col-md-6 btn">
+                <button class="btn btn-tertiary w-75 w-md-50 fw-bold" onclick="contactEnable()">Passer la commander</button>
+            </div>
+            <div class="col-0 col-md-3 mt-3"></div>
+        </div>
+    </div>
+    <!-- Formulaire de contact -->
+    <div id="contact" class="container d-none">
+        <div class="row my-3 me-0">
+            <div class="col-0 col-md-2"></div>
+            <form method="GET" action="confirmation.html" class="col col-md-8 align-center">
+                <div class="form-group p-1">
+                    <label for="firstName">Prénom</label>
+                    <input type="text" name="firstName" id="firstName" class="form-control" required pattern="[a-z,A-Z,\s,-]{1,128}">
+                </div>
+                <div class="form-group p-1">
+                    <label for="lastName">Nom</label>
+                    <input type="text" name="lastName" id="lastName" class="form-control" required pattern="[a-z,A-Z,\s,-]{1,128}">
+                </div>
+                <div class="form-group p-1">
+                <label for="adress">Adresse</label>
+                    <input type="text" name="adress" id="adress" class="form-control" required pattern="[a-z,A-Z,\s,-,0-9]{1,128}"> 
+                </div>
+                <div class="form-group p-1">
+                    <label for="city">Ville</label>
+                    <input type="text" name="city" id="city" class="form-control" required pattern="[a-z,A-Z,\s,-,0-9]{1,128}">
+                </div>
+                <div class="form-group p-1">
+                    <label for="email">Adresse mail</label>
+                    <input type="email" name="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group p-1">
+                    <input type="submit" value="Valider la commande" name="order" id="order" class="form-control fw-bold btn btn-secondary">
+                </div>
+            </form>
+            <div class="col-0 col-md-2"></div>
+        </div>
+    </div>
 <!-- Footer conteneur -->
     <footer class="container-fluid container-lg bg-light">
         <div class="row pt-3">

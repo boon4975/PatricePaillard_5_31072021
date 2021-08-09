@@ -1,0 +1,58 @@
+h1 {
+    color: $primary;  
+}
+h1, h2 {
+    font-family: 'Merienda', cursive;
+}
+.btn-tertiary {
+    color: #000 !important;
+    background-color: $gray-100 !important;
+    border-color: #c97b59 !important;
+  }
+.cadreImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    &--lg {
+        max-width: 400px;
+        max-height: 250px;
+    }
+    &--xs {
+        max-width: 50px;
+        max-height: 50px;
+    }
+    & img {
+        width: auto;
+        height: 100%;
+    }
+}
+
+.miniature {
+    display: flex;
+    justify-content: center;
+}
+.anim__headshake:not(:focus):invalid {
+    background: $gray-100;
+    animation: headshake 100ms cubic-bezier(0.755, 0.05, 0.855, 0.06) 3;
+}
+
+.icon{
+    &__count {
+        position: absolute;
+        font-size: 14px;
+        text-align: center;
+        vertical-align: middle;
+        top: 10px;
+        right: 35px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: red;
+        color: #fff;
+    }
+    &__cart {
+        font-size: 25px!important;
+        color: $primary;
+    }
+}
