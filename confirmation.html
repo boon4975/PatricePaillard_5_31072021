@@ -13,19 +13,29 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/644a43a817.js" crossorigin="anonymous"></script>
         
     
         <title>Confirmation de commande Oniroco</title>
     </head>
 <body>
  <!-- Header conteneur -->   
-    <header class="container-fluid container-lg bg-light">
+    <header class="container-fluid container-lg bg-light col-12">
+        <div class="row">
+                
+                <div class="col-2"><img src="./images/logo/icon.png" alt=""></div>
+                <div class="col-8 pt-2"><a href="index.html" class="text-decoration-none text-start"><h1>Oniroco</h1></a></div>
+                <div class="col-2">
+                    <div class="cart">
+                        <div class="cart__block">
+                            <div class="cart__icon pt-2"><a href="panier.html"><i class="fas fa-shopping-cart fa-lg"></i></a><p class="h6">Panier</p></div>
+                            <div class="cart__count fw-bold d-none">0</div>
+                        </div>
+                    </div>
+                </div>
+        </div>
         <div class="row">
             <nav class="col navbar navbar-expand-lg navbar-light">
-                <a href="index.html" class="navbar-brand row">
-                    <img src="./images/logo/icon.png" alt="logo de Oniroco" width="50" height="50" class="col-4"/>
-                    <h1 class="col-8 text-center align-self-end">Oniroco</h1>
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
