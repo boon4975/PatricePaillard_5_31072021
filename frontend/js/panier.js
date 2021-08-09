@@ -14,3 +14,4 @@ document.getElementById('city').addEventListener('focusin', function(){
 document.getElementById('email').addEventListener('focusin', function(){
     document.getElementById('email').classList.add('anim__headshake');
 });
+countArticle();
