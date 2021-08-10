@@ -42,6 +42,7 @@ function viewPanier(){
             <td>${cart[i].qty}</td>
             <td>${prixEuro}</td>
             <td>${sousTotalProduitEuro}</td>
+            <td class="delete"><i id="${cart[i]._id}" class="far fa-trash-alt" onclick="removeFromCart(this)"></i></td>
         </tr>
     `;
     totalCart += sousTotalProduit; 
@@ -49,8 +50,7 @@ function viewPanier(){
     totalCartEuro = (totalCart / 100).toFixed(2) + ' €';
     document.querySelector("#total").innerHTML += `
         ${totalCartEuro}
-    `;
-    
+    `;    
 };
 // création du HTML pour un produit sélectionné (produit.html)
 function viewProduct(dataProduitSelected) {

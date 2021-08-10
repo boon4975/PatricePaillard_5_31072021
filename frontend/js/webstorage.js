@@ -35,6 +35,24 @@ function saveToCart(dataProduitSelected) {
     localStorage.setItem("cart", JSON.stringify(dataProduitSelected));
 }
 
+function removeFromCart(idRemoved) {
+    (idRemoved.id);
+    let cart = initCart();
+    let idCart = searchIdsCart(cart);
+    for(i = 0; i < cart.length; i++){
+        let idFound = idCart.includes(idRemoved.id);
+        if(idFound == true){
+            var delpos = idCart.indexOf(idRemoved.id);// récupère l'index du produit a supprimer
+            i = cart.length +1;
+        }
+    }
+    if(delpos != null){
+        cart.splice(delpos,1);
+        saveToCart(cart);
+        document.location.reload();
+    }
+}
+
 // compte le nombre d'article au panier
 function countArticle() {
     let article = initCart();

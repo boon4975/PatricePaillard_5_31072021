@@ -76,6 +76,10 @@ h1, .h1, h2, .h2 {
   color: #915cf8;
 }
 
+.delete {
+  cursor: pointer;
+}
+
 /*import Bootstrap*/
 /*!
  * Bootstrap v5.0.2 (https://getbootstrap.com/)
