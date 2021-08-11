@@ -71,3 +71,72 @@ function searchIdsCart(cart){
     }
     return idCart;
 }
+
+// data formulaire contact et panier sauvegarder dans le sessionStorage
+function submitFormContact(){
+    let cart = initCart();
+    
+    firstName = document.forms['contact'].firstName.value;
+    lastName = document.forms['contact'].lastName.value;
+    address = document.forms['contact'].address.value;
+    city = document.forms['contact'].city.value;
+    email = document.forms['contact'].email.value;
+    let contact = {firstName, lastName, address, city,email};
+    let listProductsId = searchIdsCart(cart);
+    initOrder();
+    let order = [];
+    order.push({
+        "contact": {
+            "firstName": document.forms['contact'].firstName.value,
+            "lastName": document.forms['contact'].lastName.value,
+            "address": document.forms['contact'].address.value,
+            "city": document.forms['contact'].city.value,
+            "email": document.forms['contact'].email.value
+            },
+        "products" : searchIdsCart(cart)
+    });
+
+    saveOrder(order);
+    postTeddies(contact, listProductsId);
+    window.location.href="confirmation.html";
+}
+
+function saveOrder(order){
+    sessionStorage.setItem("order", JSON.stringify(order));
+}
+function initOrder() {
+    let order = sessionStorage.getItem("order");
+    if(order != null){
+        sessionStorage.removeItem("order");
+    }
+}
+function getOrder() {
+    let order = sessionStorage.getItem("order");
+    return JSON.parse(order);
+}
+
+function postTeddies(contact, listProductsId){
+    fetch('http://localhost:3000/api/teddies/order',
+    {
+        method: "POST",
+        headers: {
+            'content-type': 'application/json'
+        },
+        mode: 'cors',
+        body: JSON.stringify({
+            contact: contact,
+            products: listProductsId
+        }),
+    })
+    .then(function(res){
+        if(res.ok){
+            return res.json();
+        }
+    })
+    .then(function(postdata){
+        orderId = postdata.orderId;
+        order = getOrder();
+        order.push({"orderId": orderId});
+        saveOrder(order);
+    })
+}

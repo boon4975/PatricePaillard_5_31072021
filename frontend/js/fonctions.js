@@ -1,7 +1,7 @@
 // Liste des catégories de produits
 const listCategoriesProduits = ['teddies', 'cameras', 'furniture'];
 // Liste des champs requis du formulaire
-const fieldRequired = ['firstName', 'lastName', 'adress', 'city', 'email']
+const fieldRequired = ['firstName', 'lastName', 'address', 'city', 'email']
 
 // création du HTML pour chaque type de produit disponible (index.html)
 function viewAllProducts(dataProduit) {
@@ -166,21 +166,3 @@ function contactEnable(){
     document.getElementById("contact").classList.remove("d-none");
 }
 
-function patternCheck(value){
-    value.forEach(field => {
-        if(field == 'firstName' || field == 'lastName'){
-            fieldCheckText(field);
-        }else if(field == 'adress' || field == 'city'){
-            fieldCheckText(field);
-        }else if(field == 'email'){
-            fieldCheckText(field);
-        }
-        
-    });
-}
-
-function fieldCheckText(e){
-    if(/[0-9&"#'{(  )}`_\\@+=$*%!:\/;.?,°\[\]-]/.test(e.target.value)){
-        alert('erreur');
-    }
-};

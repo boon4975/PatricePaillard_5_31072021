@@ -102,7 +102,7 @@
     <div id="contact" class="container d-none">
         <div class="row my-3 me-0">
             <div class="col-0 col-md-2"></div>
-            <form method="GET" action="confirmation.html" class="col col-md-8 align-center">
+            <form method="GET" action="confirmation.html" class="col col-md-8 align-center" name="contact">
                 <div class="form-group p-1">
                     <label for="firstName">Prénom</label>
                     <input type="text" name="firstName" id="firstName" class="form-control" required pattern="[a-z,A-Z,\s,-]{1,128}">
@@ -112,8 +112,8 @@
                     <input type="text" name="lastName" id="lastName" class="form-control" required pattern="[a-z,A-Z,\s,-]{1,128}">
                 </div>
                 <div class="form-group p-1">
-                <label for="adress">Adresse</label>
-                    <input type="text" name="adress" id="adress" class="form-control" required pattern="[a-z,A-Z,\s,-,0-9]{1,128}"> 
+                <label for="address">Adresse</label>
+                    <input type="text" name="address" id="address" class="form-control" required pattern="[a-z,A-Z,\s,-,0-9]{1,128}"> 
                 </div>
                 <div class="form-group p-1">
                     <label for="city">Ville</label>
@@ -121,10 +121,10 @@
                 </div>
                 <div class="form-group p-1">
                     <label for="email">Adresse mail</label>
-                    <input type="email" name="email" id="email" class="form-control" required>
+                    <input type="email" name="email" id="email" class="form-control" required pattern="^[a-z0-9][a-z0-9._-]+@[a-z0-9._-]{2,}\.([a-z]{2,4})$">
                 </div>
                 <div class="form-group p-1">
-                    <input type="submit" value="Valider la commande" name="order" id="order" class="form-control fw-bold btn btn-secondary">
+                    <input type="button" onclick="submitFormContact()" value="Valider la commande" id="order" class="form-control fw-bold btn btn-secondary">
                 </div>
             </form>
             <div class="col-0 col-md-2"></div>

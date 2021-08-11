@@ -60,3 +60,65 @@ async function getAllFurniture() {
 
 getAllFurniture();
 */
+
+function patternCheck(value){
+    value.forEach(field => {
+        if(field == 'firstName' || field == 'lastName'){
+            fieldCheckText(field);
+        }else if(field == 'adress' || field == 'city'){
+            fieldCheckText(field);
+        }else if(field == 'email'){
+            fieldCheckText(field);
+        }
+        
+    });
+}
+
+function fieldCheckText(e){
+    if(/[0-9&"#'{(  )}`_\\@+=$*%!:\/;.?,°\[\]-]/.test(e.target.value)){
+        alert('erreur');
+    }
+};
+
+
+contact.push({"firstName": firstName});
+    contact.push({"lastName": lastName});
+    contact.push({"address": address});
+    contact.push({"city": city});
+    contact.push({"email": email});
+
+    contact.push({
+        "firstName": firstName,
+        "lastName": lastName,
+        "address": address,
+        "city": city,
+        "email": email
+    })
+    
+// fn avant inclusion fetch
+    function getDataContact(){
+        let cart = initCart();
+        let products = [searchIdsCart(cart)]; 
+        let contact = [];
+        firstName = document.forms['contact'].firstName.value;
+        lastName = document.forms['contact'].lastName.value;
+        address = document.forms['contact'].address.value;
+        city = document.forms['contact'].city.value;
+        email = document.forms['contact'].email.value;
+        
+        initOrder();
+        let order = [];
+        order.push({
+            "contact": {
+                "firstName": firstName,
+                "lastName": lastName,
+                "address": address,
+                "city": city,
+                "email": email
+                },
+            "products" : products
+        });
+    
+        saveOrder(order);
+        window.location.href="confirmation.html";
+    }
