@@ -110,8 +110,8 @@ function viewProduct(dataProduitSelected) {
 function getProduitsParType(typeProduits) {
     let urlApi = `http://localhost:3000/api/${typeProduits}`;
     fetch(urlApi)
-        .then(function(res){
-            if (res.ok) {
+        .then((res) =>{
+            if (res) {
                 return res.json();
             }
         })

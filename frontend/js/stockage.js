@@ -8,15 +8,15 @@ async function getAll() {
         const allProducts = [];
         const respteddies = await fetch('http://localhost:3000/api/teddies');
         const allTeddies = await respteddies.json();
-        allProducts.push(allTeddies);
+        allProducts.push({"teddies": allTeddies});
 
         const respcameras = await fetch('http://localhost:3000/api/cameras');
         const allCameras = await respcameras.json();
-        allProducts.push(allCameras);
+        allProducts.push({"cameras": allCameras});
 
         const respfurniture = await fetch('http://localhost:3000/api/furniture');
         const allFurniture = await respfurniture.json();
-        allProducts.push(allFurniture);
+        allProducts.push({"furniture": allFurniture});
 
         sessionStorage.setItem('allProducts', JSON.stringify(allProducts));
     }
