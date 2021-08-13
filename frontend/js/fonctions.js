@@ -3,110 +3,9 @@ const listCategoriesProduits = ['teddies', 'cameras', 'furniture'];
 // Liste des champs requis du formulaire
 const fieldRequired = ['firstName', 'lastName', 'address', 'city', 'email']
 
-// création du HTML pour chaque type de produit disponible (index.html)
-function viewAllProducts(dataProduit) {
-    for (let i = 0; i < dataProduit.length; i++) {
-        let prixEuro = (dataProduit[i].price / 100).toFixed(2) + ' €';
-        document.querySelector("#main").innerHTML += `
-        <div class="col-12 col-md-6 col-lg-4 card my-3 shadow">
-            <div class="cadreImage cadreImage--lg"><img src="${dataProduit[i].imageUrl}" alt="${dataProduit[i].name}" class="card-img-top" /></div>
-            <div class="card-body">
-                <h2 class="card-title text-center" id="name">${dataProduit[i].name}</h2>
-                <div class="card-subtitle bg-light my-3 text-center">${prixEuro}</div>
-                <div class="card-text my-3">${dataProduit[i].name}<br/>${dataProduit[i].description}</div>
-                <a href="produit.html?id=${dataProduit[i]._id}" rel="nofollow"><button id="${dataProduit[i]._id}" class="btn btn-secondary w-100">détails</button></a>
-                <form method="get" action="panier.html">
-                </form>
-            </div>   
-        </div>`;  
-    };
-};
 
-// création du HTML pour le panier
-function viewPanier(){
-    let cart = initCart();
-    let totalCart = 0;
-    //boucle sur le panier
-    for(i = 0; i < cart.length; i++){
-       let prixEuro = (cart[i].price / 100).toFixed(2) + ' €';
-       sousTotalProduit = sousTotal(cart[i]);
-       sousTotalProduitEuro = (sousTotal(cart[i]) / 100).toFixed(2) + ' €';
-       document.querySelector("#main").innerHTML += `
-        <tr>
-            <td class="miniature">
-                <div class="cadreImage cadreImage--xs my-1">
-                    <img src="${cart[i].imageUrl}" alt="miniature ours 1" />
-                </div>
-            </td>
-            <td colspan="2">${cart[i].name}</td>
-            <td>${cart[i].qty}</td>
-            <td>${prixEuro}</td>
-            <td>${sousTotalProduitEuro}</td>
-            <td class="delete"><i id="${cart[i]._id}" class="far fa-trash-alt" onclick="removeFromCart(this)"></i></td>
-        </tr>
-    `;
-    totalCart += sousTotalProduit; 
-    }
-    totalCartEuro = (totalCart / 100).toFixed(2) + ' €';
-    document.querySelector("#total").innerHTML += `
-        ${totalCartEuro}
-    `;    
-};
-// création du HTML pour un produit sélectionné (produit.html)
-function viewProduct(dataProduitSelected) {
-    let option =[];
-    if(dataProduitSelected.hasOwnProperty('colors') == true){
-        option = option.concat(dataProduitSelected.colors);
-    }else if(dataProduitSelected.hasOwnProperty('varnish') == true){
-        option = option.concat(dataProduitSelected.varnish);
-    }else if(dataProduitSelected.hasOwnProperty('lenses') == true){
-        option = option.concat(dataProduitSelected.lenses);
-    };
-    let prixEuro = (dataProduitSelected.price / 100).toFixed(2) + ' €';
-    document.querySelector("#main").innerHTML += `
-        <div class="col-0 col-md-3"></div>    
-        <div class="col-12 col-md-6 card my-3 shadow">
-            <div class="row">
-                <div class="col-0 col-md-2"></div>
-                <div class="col-12 col-md-8 cadreImage cadreImage--lg">
-                    <img src="${dataProduitSelected.imageUrl}" alt="photo ourson ${dataProduitSelected.name}" class="card-img-top" />
-                </div>
-                <div class="col-0 col-md-2"></div>
-            </div>
-            <div class="card-body">
-                <h2 class="card-title text-center" id="name">${dataProduitSelected.name}</h2>
-                <div class="card-subtitle bg-light my-3 text-center">${prixEuro}</div>
-                <div class="card-text my-3">${dataProduitSelected.description}</div>
-                <form id="form">
-                </form>
-            </div>   
-        </div>
-        <div class="col-0 col-md-3"></div>`;
-    document.querySelector("#form").innerHTML = `
-        <div class="form-group p-1">
-            <select name="colors" id="options" class="form-control">
-                <option>Option disponible</option>
-            </select>
-            <div class="form-group p-1">
-                <label for="qty">Quantité : </label>
-                <input type="number" min="1" name="qty" id="qty" class="form-control" autofocus required/>
-            </div>
-            <div class="form-group p-1">
-                <input type="button" value="Ajouter au panier" name="Order" id="order" class="form-control btn btn-secondary" disabled="true" data-toggle="modal" data-target="#popup"/>
-            </div>
-        </div>`;
-    for(let opt = 0; opt < option.length; opt++){
-        document.querySelector("#options").innerHTML += `
-            <option value="${option[opt]}">${option[opt]}
-            </option> `;
-    };
-    document.getElementById('order').addEventListener('click', function(){
-        addToCart(dataProduitSelected);
-    });
-    getQtyOnClick(dataProduitSelected);
-};
 
-// Récupération des données pour chaque catégorie de produit ou pour un id.produit
+// Req API GET pour chaque catégorie de produit ou pour un id.produit
 function getProduitsParType(typeProduits) {
     let urlApi = `http://localhost:3000/api/${typeProduits}`;
     fetch(urlApi)
@@ -121,10 +20,36 @@ function getProduitsParType(typeProduits) {
               viewAllProducts(dataProduit);   
             }else{
                 let dataProduitSelected = searchProductId(dataProduit, idRecherche);
-                viewProduct(dataProduitSelected);
-                };
-            })          
+                if(dataProduitSelected != null){
+                    viewProduct(dataProduitSelected, typeProduits);
+                }
+            };
+        })          
 };
+// req API POST - TEDDIES
+async function postTeddies(contact, listProductsId){
+    let postdata = await fetch('http://localhost:3000/api/teddies/order',
+        {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+                contact: contact,
+                products: listProductsId
+            }),
+        })
+        .then(function(res){
+            if(res.ok){
+                return res.json();
+            }
+        })
+        .catch((e) => {
+            alert('Error log' + e) 
+         });
+    return postdata
+}
 // récupération ID dans la barre de navigation
 function getIdInSearchBar() {
     let idDansUri = window.location.search;
@@ -132,8 +57,7 @@ function getIdInSearchBar() {
     return idRecherche;
 };
 // recherche d'un produit par son ID
-function searchProductId(dataProduit) {
-    let idRecherche = getIdInSearchBar()
+function searchProductId(dataProduit, idRecherche) {
     for (let i = 0; i < dataProduit.length; i++) {
         let idFound = dataProduit[i]._id.includes(idRecherche);
         if(idFound == true){
@@ -141,7 +65,6 @@ function searchProductId(dataProduit) {
         }
     };
 }
-
 // calcul sous-total de chaque article au panier
 function sousTotal(cart) {
     let prix = cart.price;
@@ -165,4 +88,17 @@ function submitEnable(enable){
 function contactEnable(){
     document.getElementById("contact").classList.remove("d-none");
 }
-
+// format de date Fr
+function dateFormatFR(date){
+    let timestamp = Date.parse(date);
+    let dateOrder = new Date(timestamp);
+    return dateOrder.toLocaleDateString();
+}
+// envoi du formulaire vers la page de confirmation de commande
+async function submitFormContact(){
+    let contact = await getFormContact();
+    let listProductsId = await getCartProductsId();
+    let postdata = await postTeddies(contact, listProductsId);
+    getOrderID(postdata);
+    window.location.href="confirmation.html";
+ }

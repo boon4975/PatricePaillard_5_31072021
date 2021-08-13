@@ -122,3 +122,7 @@ contact.push({"firstName": firstName});
         saveOrder(order);
         window.location.href="confirmation.html";
     }
+
+    //test fn
+    // liste des id produit dans le panier
+

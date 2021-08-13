@@ -1,3 +1,4 @@
+// initialise le panier dans le localStorage
 function initCart() {
     let cart = localStorage.getItem("cart");
     if(cart != null){
@@ -6,7 +7,7 @@ function initCart() {
         return [];
     }
 }
-
+// ajout d'un article au panier
 function addToCart(dataProduitSelected){
     let cart = initCart();
     let idRecherche = getIdInSearchBar();
@@ -18,7 +19,7 @@ function addToCart(dataProduitSelected){
             i = cart.length +1;
         }
     }
-    if(position != null){ //modification seulement de la quantité
+    if(position != null){ //modification seulement de la quantité si le produit est déjà au panier
         let qty = parseInt(cart[position].qty);
         let newqty = qty + parseInt(dataProduitSelected.qty);
         cart[position].qty = newqty;
@@ -30,11 +31,11 @@ function addToCart(dataProduitSelected){
         countArticle();
     }    
 }
-
+// enregistre le panier dans le localStorage
 function saveToCart(dataProduitSelected) {
     localStorage.setItem("cart", JSON.stringify(dataProduitSelected));
 }
-
+// retire un article du panier
 function removeFromCart(idRemoved) {
     (idRemoved.id);
     let cart = initCart();
@@ -52,6 +53,7 @@ function removeFromCart(idRemoved) {
         document.location.reload();
     }
 }
+// récupère la valeur de panier depuis le localStorage
 function getCart(){
     let cart = localStorage.getItem("cart");
     return JSON.parse(cart);
@@ -76,23 +78,33 @@ function searchIdsCart(cart){
     return idCart;
 }
 
-// manipulation de la commande dans le sessionStorage
+function searchTeddiesInCart(cart){
+    let idCart = [];
+    for(i = 0;i < cart.length; i++){
+        if(cart[i].categorie == 'teddies'){
+            idCart.push(cart[i]._id);
+        }
+    }
+    return idCart;
+}
 
+// enregistre la commande dans le sessionStorage
 function saveOrder(order){
     sessionStorage.setItem("order", JSON.stringify(order));
 }
+// initialise la commande dans le sessionStorage
 function initOrder() {
     let order = sessionStorage.getItem("order");
     if(order != null){
         sessionStorage.removeItem("order");
     }
 }
+//récupère le contenu de la commande
 function getOrder() {
     let order = sessionStorage.getItem("order");
     return JSON.parse(order);
 }
-// gestion formulaire de contact
-
+// récupère les infos du formulaire de contact et la date
 function getFormContact(){
     firstName = document.forms['contact'].firstName.value;
     lastName = document.forms['contact'].lastName.value;
@@ -116,9 +128,10 @@ function getFormContact(){
     saveOrder(order);
     return contact;
 }
+//récupère les id produit pour la req POST
 async function getCartProductsId(){
     let cart = initCart();
-    let listProductsId = searchIdsCart(cart); // variable pour le POST
+    let listProductsId = searchTeddiesInCart(cart); // variable pour le POST
     let order = await getOrder();
     order.push({
         "products" : cart
@@ -127,39 +140,10 @@ async function getCartProductsId(){
     return listProductsId;
 }
 
-async function postTeddies(contact, listProductsId){
-    let postdata = await fetch('http://localhost:3000/api/teddies/order',
-        {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json'
-            },
-            mode: 'cors',
-            body: JSON.stringify({
-                contact: contact,
-                products: listProductsId
-            }),
-        })
-        .then(function(res){
-            if(res.ok){
-                return res.json();
-            }
-        })
-        .catch((e) => {
-            alert('Error log' + e) 
-         });
-    return postdata
-}
+// récupère l'ordre ID de la commande
 function getOrderID(postdata){
     orderId = postdata.orderId;
     order = getOrder();
     order.push({"orderId": orderId});
     saveOrder(order);
-}
-async function submitFormContact(){
-   let contact = await getFormContact();
-   let listProductsId = await getCartProductsId();
-   let postdata = await postTeddies(contact, listProductsId);
-   getOrderID(postdata);
-   window.location.href="confirmation.html";
 }
