@@ -19,7 +19,7 @@ function addToCart(dataProduitSelected){
             i = cart.length +1;
         }
     }
-    if(position != null){ //modification seulement de la quantité si le produit est déjà au panier
+    if(position != null){ //quantité modifiée si le produit est déjà au panier
         let qty = parseInt(cart[position].qty);
         let newqty = qty + parseInt(dataProduitSelected.qty);
         cart[position].qty = newqty;
@@ -53,13 +53,13 @@ function removeFromCart(idRemoved) {
         document.location.reload();
     }
 }
-// récupère la valeur de panier depuis le localStorage
+// récupère le panier depuis le localStorage
 function getCart(){
     let cart = localStorage.getItem("cart");
     return JSON.parse(cart);
 }
 
-// compte le nombre d'article au panier
+// compte et affiche le nombre d'article au panier
 function countArticle() {
     let article = initCart();
     if(article.length > 0) {
@@ -77,7 +77,7 @@ function searchIdsCart(cart){
     }
     return idCart;
 }
-
+// retoune la liste des Id Teddies uniquement pour la req POST
 function searchTeddiesInCart(cart){
     let idCart = [];
     for(i = 0;i < cart.length; i++){

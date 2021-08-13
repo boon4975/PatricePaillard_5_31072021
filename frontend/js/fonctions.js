@@ -3,8 +3,6 @@ const listCategoriesProduits = ['teddies', 'cameras', 'furniture'];
 // Liste des champs requis du formulaire
 const fieldRequired = ['firstName', 'lastName', 'address', 'city', 'email']
 
-
-
 // Req API GET pour chaque catégorie de produit ou pour un id.produit
 function getProduitsParType(typeProduits) {
     let urlApi = `http://localhost:3000/api/${typeProduits}`;

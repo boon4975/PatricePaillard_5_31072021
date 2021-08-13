@@ -17,6 +17,7 @@ console when the server starts, e.g. `Listening on port 3001`.
 ### Fonctionnement ###
 
 le Frontend fonctionne avec tous les produits de l'affichage de la liste complète,
-l'ajout au panier et le calcul du total.
+à l'ajout au panier, au calcul du total.
 
-Pour soummettre le panier en commande il NE FAUT que des OURS en peluche pour valider la commande.
+La Requete POST pour l'obtention de l'orderId est effectuée UNIQUEMENT sur les TEDDIES.
+
