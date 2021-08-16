@@ -8,38 +8,43 @@ function initCart() {
     }
 }
 // ajout d'un article au panier
-function addToCart(dataProduitSelected){
+function addToCart(dataProductSelected){
     let cart = initCart();
-    let idRecherche = getIdInSearchBar();
-    let idCart = searchIdsCart(cart);
+    let idSearched = getIdInSearchBar();
+    let idCart = getIdsCart(cart);
     for(i = 0; i < cart.length; i++){
-        let idFound = idCart.includes(idRecherche);
+        let idFound = idCart.includes(idSearched);
         if(idFound == true){
-            var position = idCart.indexOf(idRecherche);// récupère l'index du produit dans la liste des id au panier
+            var position = idCart.indexOf(idSearched);// récupère l'index du produit dans la liste des id au panier
             i = cart.length +1;
         }
     }
     if(position != null){ //quantité modifiée si le produit est déjà au panier
         let qty = parseInt(cart[position].qty);
-        let newqty = qty + parseInt(dataProduitSelected.qty);
+        let newqty = qty + parseInt(dataProductSelected.qty);
         cart[position].qty = newqty;
         saveToCart(cart);
         countArticle();
     }else{
-        cart.push(dataProduitSelected);
+        cart.push(dataProductSelected);
         saveToCart(cart);
         countArticle();
     }    
 }
 // enregistre le panier dans le localStorage
-function saveToCart(dataProduitSelected) {
-    localStorage.setItem("cart", JSON.stringify(dataProduitSelected));
+function saveToCart(dataProductSelected) {
+    try {
+        localStorage.setItem("cart", JSON.stringify(dataProductSelected));
+    }
+    catch(e) {
+        console.log(e.message);
+    }
 }
 // retire un article du panier
 function removeFromCart(idRemoved) {
     (idRemoved.id);
     let cart = initCart();
-    let idCart = searchIdsCart(cart);
+    let idCart = getIdsCart(cart);
     for(i = 0; i < cart.length; i++){
         let idFound = idCart.includes(idRemoved.id);
         if(idFound == true){
@@ -70,7 +75,7 @@ function countArticle() {
 }
 
 // liste des id produit dans le panier
-function searchIdsCart(cart){
+function getIdsCart(cart){
     let idCart = [];
     for(i = 0;i < cart.length; i++){
         idCart.push(cart[i]._id);
@@ -90,7 +95,12 @@ function searchTeddiesInCart(cart){
 
 // enregistre la commande dans le sessionStorage
 function saveOrder(order){
-    sessionStorage.setItem("order", JSON.stringify(order));
+    try{
+        sessionStorage.setItem("order", JSON.stringify(order));
+    }
+    catch(e) {
+        console.log(e.message);
+    }
 }
 // initialise la commande dans le sessionStorage
 function initOrder() {

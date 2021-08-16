@@ -1,5 +1,5 @@
-listCategoriesProduits.forEach(value => {
-  getProduitsParType(value);
+listCategoryProducts.forEach(value => {
+  getProductsByType(value);
 });
 
 countArticle();

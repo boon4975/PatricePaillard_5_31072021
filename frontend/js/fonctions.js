@@ -1,28 +1,31 @@
 // Liste des catégories de produits
-const listCategoriesProduits = ['teddies', 'cameras', 'furniture'];
-// Liste des champs requis du formulaire
-const fieldRequired = ['firstName', 'lastName', 'address', 'city', 'email']
+const listCategoryProducts = ['teddies', 'cameras', 'furniture'];
+
+
 
 // Req API GET pour chaque catégorie de produit ou pour un id.produit
-function getProduitsParType(typeProduits) {
-    let urlApi = `http://localhost:3000/api/${typeProduits}`;
+function getProductsByType(typeProducts) {
+    let urlApi = `http://localhost:3000/api/${typeProducts}`;
     fetch(urlApi)
         .then((res) =>{
             if (res) {
                 return res.json();
             }
         })
-        .then(function(dataProduit){
-            let idRecherche = getIdInSearchBar();
-            if(idRecherche == ""){
-              viewAllProducts(dataProduit);   
+        .then(function(dataProduct){
+            let idSearched = getIdInSearchBar();
+            if(idSearched == ""){
+              viewAllProducts(dataProduct);   
             }else{
-                let dataProduitSelected = searchProductId(dataProduit, idRecherche);
-                if(dataProduitSelected != null){
-                    viewProduct(dataProduitSelected, typeProduits);
+                let dataProductSelected = searchProductId(dataProduct, idSearched);
+                if(dataProductSelected != null){
+                    viewProduct(dataProductSelected, typeProducts);
                 }
             };
-        })          
+        })
+        .catch((e) => {
+            console.log('erreur log' + e);
+        })        
 };
 // req API POST - TEDDIES
 async function postTeddies(contact, listProductsId){
@@ -44,42 +47,42 @@ async function postTeddies(contact, listProductsId){
             }
         })
         .catch((e) => {
-            alert('Error log' + e) 
+            console.log('erreur log' + e) 
          });
     return postdata
 }
 // récupération ID dans la barre de navigation
 function getIdInSearchBar() {
-    let idDansUri = window.location.search;
-    let idRecherche = idDansUri.substring(4,idDansUri.length);
-    return idRecherche;
+    let idUri = window.location.search;
+    let idSearched = idUri.substring(4,idUri.length);
+    return idSearched;
 };
 // recherche d'un produit par son ID
-function searchProductId(dataProduit, idRecherche) {
-    for (let i = 0; i < dataProduit.length; i++) {
-        let idFound = dataProduit[i]._id.includes(idRecherche);
+function searchProductId(dataProduct, idSearched) {
+    for (let i = 0; i < dataProduct.length; i++) {
+        let idFound = dataProduct[i]._id.includes(idSearched);
         if(idFound == true){
-            return dataProduit[i];
+            return dataProduct[i];
         }
     };
 }
 // calcul sous-total de chaque article au panier
-function sousTotal(cart) {
-    let prix = cart.price;
+function subtotal(cart) {
+    let price = cart.price;
     let qty = cart.qty;
-    let totalProduit = prix * parseInt(qty);
-    return totalProduit;
+    let totalProduct = price * parseInt(qty);
+    return totalProduct;
 };
 
 // recupérer la saisie de la quantité au click
-function getQtyOnClick(dataProduitSelected) {
+function getQtyOnClick(dataProductSelected) {
     document.getElementById('qty').addEventListener('input', function(e){
-        submitEnable(true);
-        return dataProduitSelected.qty = e.target.value;
+        enableAddToCart(true);
+        return dataProductSelected.qty = e.target.value;
     })
 }
 // event activation de "ajout au panier"
-function submitEnable(enable){
+function enableAddToCart(){
     document.getElementById("order").removeAttribute("disabled");
 }
 // event affichage du formulaire de contact
@@ -99,4 +102,9 @@ async function submitFormContact(){
     let postdata = await postTeddies(contact, listProductsId);
     getOrderID(postdata);
     window.location.href="confirmation.html";
+ }
+ // format prix en Euros
+ function priceToEuro(price){
+    let priceEuro = (price / 100).toFixed(2) + ' €';
+    return priceEuro;
  }
