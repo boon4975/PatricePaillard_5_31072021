@@ -20,8 +20,8 @@ document.getElementById('firstName').addEventListener('focusin', function(){
 document.getElementById('lastName').addEventListener('focusin', function(){
     document.getElementById('lastName').classList.add('anim__headshake');
 });
-document.getElementById('adress').addEventListener('focusin', function(){
-    document.getElementById('adress').classList.add('anim__headshake');
+document.getElementById('address').addEventListener('focusin', function(){
+    document.getElementById('address').classList.add('anim__headshake');
 });
 document.getElementById('city').addEventListener('focusin', function(){
     document.getElementById('city').classList.add('anim__headshake');
