@@ -1,8 +1,6 @@
 // Liste des catégories de produits
 const listCategoryProducts = ['teddies', 'cameras', 'furniture'];
 
-
-
 // Req API GET pour chaque catégorie de produit ou pour un id.produit
 function getProductsByType(typeProducts) {
     let urlApi = `http://localhost:3000/api/${typeProducts}`;
@@ -13,15 +11,7 @@ function getProductsByType(typeProducts) {
             }
         })
         .then(function(dataProduct){
-            let idSearched = getIdInSearchBar();
-            if(idSearched == ""){
-              viewAllProducts(dataProduct);   
-            }else{
-                let dataProductSelected = searchProductId(dataProduct, idSearched);
-                if(dataProductSelected != null){
-                    viewProduct(dataProductSelected, typeProducts);
-                }
-            };
+              viewAllProducts(dataProduct, typeProducts);
         })
         .catch((e) => {
             console.log('erreur log' + e);
@@ -51,12 +41,21 @@ async function postTeddies(contact, listProductsId){
          });
     return postdata
 }
-// récupération ID dans la barre de navigation
-function getIdInSearchBar() {
-    let idUri = window.location.search;
-    let idSearched = idUri.substring(4,idUri.length);
-    return idSearched;
-};
+// req API - GET par categorie et ID Produit 
+function getProductById(params){
+    let value = `http://localhost:3000/api/${params[0]}/${params[1]}`;
+    let data = fetch(value)
+        .then((res) => {
+            if(res.ok){
+                return res.json();
+            }
+        })
+        .catch((e) => {
+            console.log('erreur' + e);
+        });
+    return data    
+}
+
 // recherche d'un produit par son ID
 function searchProductId(dataProduct, idSearched) {
     for (let i = 0; i < dataProduct.length; i++) {

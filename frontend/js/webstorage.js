@@ -8,14 +8,13 @@ function initCart() {
     }
 }
 // ajout d'un article au panier
-function addToCart(dataProductSelected){
+function addToCart(dataProductSelected, idProduct){
     let cart = initCart();
-    let idSearched = getIdInSearchBar();
     let idCart = getIdsCart(cart);
     for(i = 0; i < cart.length; i++){
-        let idFound = idCart.includes(idSearched);
+        let idFound = idCart.includes(idProduct);
         if(idFound == true){
-            var position = idCart.indexOf(idSearched);// récupère l'index du produit dans la liste des id au panier
+            var position = idCart.indexOf(idProduct);// récupère l'index du produit dans la liste des id au panier
             i = cart.length +1;
         }
     }
@@ -42,7 +41,6 @@ function saveToCart(dataProductSelected) {
 }
 // retire un article du panier
 function removeFromCart(idRemoved) {
-    (idRemoved.id);
     let cart = initCart();
     let idCart = getIdsCart(cart);
     for(i = 0; i < cart.length; i++){
