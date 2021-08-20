@@ -3,10 +3,19 @@ function paramURL() {
     let urlSearch = window.location.search;
     let params = new URLSearchParams(urlSearch);
     paramProduct = params.getAll('topic');
-    return  paramProduct;
+    if(paramProduct.length == 0 ){
+        console.log('erreur dans syntaxe URL');
+        window.location.href='index.html';
+    }else{
+        return  paramProduct;
+    }
 }
 let params = paramURL();
+if(typeof params[1] == 'undefined'){
+    getProductsByType(params[0]);
+}else{
+    viewProduct(params);
+}
 
 
-viewProduct(params);
 countArticle();

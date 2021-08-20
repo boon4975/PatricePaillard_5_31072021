@@ -93,7 +93,7 @@ function viewPanier(){
                                                                 <img src="${cart[i].imageUrl}" alt="miniature ours 1" />
                                                             </div>
                                                         </td>
-                                                        <td colspan="2">${cart[i].name}</td>
+                                                        <td>${cart[i].name}</td>
                                                         <td>${cart[i].qty}</td>
                                                         <td>${priceEuro}</td>
                                                         <td>${subtotalProductEuro}</td>

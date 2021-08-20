@@ -9,7 +9,7 @@ document.querySelector('form input[type="button"]').addEventListener('click', fu
         }
     }
         if(valid){
-            alert('Votre comannde a bien été validé');
+            alert('Votre commande a bien été validé');
             submitFormContact();
         }
 });
